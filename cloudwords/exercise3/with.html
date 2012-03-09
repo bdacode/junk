@@ -1,0 +1,73 @@
+<script>
+	function replaceParams(string, replacements) {
+		return string.replace(/\{(\d+)\}/g, function() {
+			return replacements[arguments[1]];
+		});
+	}
+
+	function generate() {
+		input = document.getElementById('input');
+		pattern = document.getElementById('pattern');
+		output = document.getElementById('output');
+		s = input.value.split('\n');
+		for (i = 0; i < s.length; i++) {
+
+			a = s[i].split(',');
+			m = replaceParams(pattern.value, a);
+			output.value += m + '\n';
+		}
+	}
+	
+	function copy(arg) {
+		pattern = document.getElementById('pattern');
+		pattern.value = arg.innerHTML; 		
+	}
+</script>
+
+
+<table>
+	<tr>
+		<td>
+			<form name="mainForm">
+				<textarea id="input" cols="80" rows="20">act
+apres
+asper
+bat
+cat
+dog
+god
+gods
+ham
+joke
+late
+latte
+mane
+name
+parse
+pits
+save
+spare
+spit
+tab
+table
+table
+tale
+vase
+</textarea>
+				<br>
+
+				<textarea id="pattern" cols="80" rows="5">"{0}",</textarea>
+				<br>
+				<textarea id="output" cols="80" rows="25"></textarea>
+				<br>
+
+			</form>
+
+		</td>
+
+		<td valign=top><input type="button" value="generate()"
+			onclick="generate()">
+			<div><pre onclick="copy(this)">this.{0} = {0}</pre></div>
+			</td>
+	</tr>
+</table>
