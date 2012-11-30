@@ -1,0 +1,80 @@
+// Find the connection between two people in an organizational hierarchy (a tree)
+// Each person represents a node in the tree
+Node {
+    String name;
+    Node parent; // parent is null if the node is head of the organizational hierarchy
+}
+// Given two people guaranteed to be in the same, connected organizational hierarchy tree, find their relationship.
+// Suppose we wanted the relationship between nodes A and D
+// "A < B < C > D"
+// A < B means B is parent of A.  C is a least common ancestor of A and D in our example.
+// In the relationship string, A will always be on the left side, and D on the right side.
+String findRelationship(Node n1, Node n2) {
+    StringBuilder sb = new StringBuilder();
+    if (n1 == n2) { // .equals
+        return n1.name;
+        return;
+    }
+    if (n1 == null || n2 == null) {
+        throw new IllegalArgumentException();
+    }
+    
+    ArrayList<Node> parentsOfNode1 = new ArrayList<Node>();
+    Node currentNode = n1.parent;
+    while (currentNode != null) {
+        parentsOfNode1.add(currentNode);
+        currentNode = currentNode.parent;
+    }
+
+    String pathFromN1ToN2
+    
+    // "n1 < n2"
+    // "n1a < n1b ... < n2"
+    
+    // the case where n2 is not an ancestor of n1
+        // TODO this copy the code to get parents, can refactor into function later
+    ArrayList<Node> parentsOfNode2 = new ArrayList<Node>();
+    currentNode = n2.parent;
+    Node leastCommonAncestor;
+    String reversePathFromN2ToLeastCommonAncestor = "";
+    while (currentNode != null) {
+    
+        reversePathFromN2ToLeastCommonAncestor = currentNode.name + " > " + reversePathFromN2ToLeastCommonAncestor;
+        // build the string  "lca > n2c > n2b > n2a"
+        
+        parentsOfNode2.add(currentNode);
+        currentNode = currentNode.parent;
+        // here i can actually find the common ancestor here
+        if (parentsOfNode1.contains(currentNode)) {
+            leastCommonAncestor = currentNode; // leastCommonAncestor will be "n2" <- this code will figure out LCA correctly
+             // the reversePath only contains "n2"
+            break;
+        }
+    }
+
+    // ok, print from n1 to leastCommonAncestor, then go down to n2, copy the code above, refactor it later
+    currentNode = n1;
+
+    if (!leastCommonAncestor.equals(n1)) {
+        do {
+            sb.append(currentNode.name + " < "); // theres extra space at the end of result
+            currentNode = currentNode.parent;
+        } while (!currentNode.equals(leastCommonAncestor)) // this will print until "n1a  n1b .... " but not leastCommonAncestor
+        // need to reverse print from n2 to its least common ancestor
+        sb.append(reversePathFromN2ToLeastCommonAncestor); // this will print "n2"
+    } else {
+        // reversePathFromN2ToLeastCommonAncestor = "n2 > n1"
+        sb.append(reversePathFromN2ToLeastCommonAncestor);
+    }
+
+    /*
+        n1
+       /
+     n2
+     
+         n1 > n2
+         
+         if one of them is common ancestor
+     */
+}
+...

@@ -1,0 +1,139 @@
+--------------------------------------------------------------------------------
+Instructions:
+
+- Thanks for your interest in NetSuite development!  Please complete the
+  following questions.  If you can't solve a problem completely, feel free to
+  submit your best partial solution, together with a comment as to what is
+  missing or what shortcomings you see with your solution.  We give partial
+  credit!
+
+- For SQL questions, you may use any dialect of SQL.  Preferred dialects are
+  ANSI SQL and Oracle SQL.  You may wish to indicate the dialect you are using.
+
+- For programming questions, Java is the preferred language.  However, you may
+  also use another modern object-oriented language such as C++, Python, Ruby,
+  JavaScript, C#, or Objective C, or a functional language such as Scheme,
+  Haskell, Erlang, Scala, or OCaml.  Just let us know what you're doing.
+
+- We'll be looking at everything.  Pretend you are writing production code.
+  We'll take into account comments (if any), identifier names, and formatting.
+
+- Good luck!                                                                1.32
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+
+Given a sorted array of integers, write a method to remove the duplicates.  Do
+not use any classes from the java.util package, or the equivalent library for
+your language.
+
+Example: [ 1, 2, 3, 3, 3, 4, 4, 10, 13, 15, 15, 17 ] ->
+         [ 1, 2, 3, 4, 10, 13, 15, 17 ]
+
+A) Solution template:
+
+    int[] removeDuplicates(int[] values)
+    {
+        // your code here
+    }
+
+   Questions (answer these):
+   1. Did you write that as if you were writing production code?
+   2. What assumptions does your implementation make about the input parameter?
+   3. What is removeDuplicates(x).length, in your implementation?
+   4. Are you using all the information you have about the input array?
+   5. What is the algorithmic complexity ("big O") of your function?
+
+B) Now implement your solution to A as a Java iterator that does not modify the source
+   array, and returns only unique elements.  Write a concrete subclass of the
+   interface java.util.Iterator; the interface is included below for convenience
+   (see http://download-llnw.oracle.com/javase/6/docs/api/java/util/Iterator.html).
+   You do not need to implement the optional remove() method.
+
+   (For other languages, implement a generator or other equivalent construct.)
+
+   Do not "cheat" by calling the removeDuplicates() you defined above. One benefit
+   of iterators is that they can operate incrementally -- make your iterator
+   only do the minimum work it needs to in each call to hasNext() or next().
+
+    public interface Iterator<E>
+    {
+        /** Returns true if the iteration has more elements. */
+        boolean hasNext();
+
+        /** Returns the next element in the iteration. */
+        E next();
+
+        /** Removes from the underlying collection the last element returned by
+            the iterator (optional operation). */
+        void remove();
+    }
+
+   Questions (answer these):
+   6. Does your implementation work for generic objects, numbers, or integers?
+   7. If it does not work with objects, what would be required to make it work
+      for generic objects?
+   
+
+--------------------------------------------------------------------------------
+QUESTION 2
+
+Given a non-negative real number a, its square root is a number x, such that x * x = a.
+One way to compute a square root is via successive approximation, where one estimate
+yields a better estimate.
+
+For example, let's say you are trying to find the square root of 2, and you have
+an estimate of 1.5. We'll say a = 2, and x = 1.5. To compute a better estimate,
+we'll divide a by x. This gives a new value y = 1.333333... However, we can't just
+take this as our next estimate (why not?). We need to average it with the previous
+estimate. So our next estimate, xx will be (x + y) / 2, or 1.416666...
+
+A) Write a function that takes a non-negative real number a, and an epsilon (a
+   small real number), and returns an approximation of the square root of a.
+
+    double square_root(double a, double epsilon) ...
+
+   Epsilon determines how accurate the approximation needs to be. The function
+   should return the first approximation x it obtains that satisfies abs(x*x - a) < epsilon,
+   where abs(x) is the absolute value of x.
+
+   Questions (answer these):
+   1. Why can't the next estimate, xx, be computed as a / x, where x is the
+      previous estimate?
+   2. What happens, in your implementation, if a = 0?
+   3. What value does your program give for square_root(2, 1e-6)?
+
+
+
+--------------------------------------------------------------------------------
+QUESTION 3
+
+You are given two database tables, EMPLOYEES and BONUS, with the following
+schema.  Data shown below should be considered example data; the actual table
+will contain other data.
+
+   EMPLOYEES                                       BONUS
+   __________________________________________      _____________
+   EMPID  NAME  SUPERVISOR  LOCATION   SALARY      EMPID  NBONUS
+   ------------------------------------------      -------------
+      34  Amy               NY         110000         17    5000
+      17  Ben           34  TN          75000         10    2000
+       5  Chris         34  TN          80000         34    5000
+      10  Don            5  HI         100000      ...
+   ...
+
+A) Write a SQL statement to return the employee's name, supervisor's name and
+   bonus of everyone who got a bonus greater than 1000.
+
+B) Write a SQL statement to list the highest paid employee in each location.
+   Ranking should be based on salary plus bonus.  Output should include employee
+   name, salary, bonus, and total pay (salary plus bonus).
+
+C) Given a NEW_SUPERVISOR table (columns: EMPID, SUPERVISOR), write an update
+   statement that updates the supervisor of each employee with a new supervisor.
+   The NEW_SUPERVISOR table is an incremental update, so employees not listed in
+   the table must retain their existing supervisor.
+
+
+--------------------------------------------------------------------------------

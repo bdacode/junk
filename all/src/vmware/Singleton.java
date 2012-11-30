@@ -1,0 +1,24 @@
+package vmware;
+
+
+
+class Singleton
+{
+	private static Singleton instance;
+	
+	private Singleton() {
+		
+	}
+	
+	public static Singleton getInstance() {
+		if (null == instance)
+			createInstance();
+		return instance;
+	}
+
+	private synchronized static void createInstance() {
+		if (null == instance)
+			instance = new Singleton();
+	}
+	
+}
