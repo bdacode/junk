@@ -1,0 +1,131 @@
+dictionary with N words, can contain duplicates, each word has length K
+{cat, cut, pat, put}
+start, end words from dic., path from start to end, each step change 1 letter at a time. the path should only contain the words from dic.
+length closest path from start to end
+
+start: cat, end: put
+cat->cut->put
+
+---
+data = new NodeData(start,0,null);
+enqueue(data)
+
+
+
+if (start == end) {
+    System.out.println(0);
+    return;
+}
+
+node.visited = false;
+
+while (!queue.empty()) {
+    nodeData = queue.removeFirst();
+    int lengthFromStart = nodeData.length;
+    adjacentNodes = getAdjacentNode(node); //?
+
+    if (adjacentNodes.contains(end)) {
+        // we found it
+        System.out.println(lengthFromStart);
+        // can print backtrace from nodeData to start.
+        break;
+    }
+
+    for (Node node : adjacentNodes) {
+        if (!node.visited) {
+            node.visited = true;
+            queue.addAll(new NodeData(node,lengthFromStart+1,nodeData));
+        }
+    }
+}
+
+
+null inputs?
+
+input : {"cat"}
+    start="cat"
+        end="cat"
+        end="none" // bad input test
+
+input : {"cat","bat"}
+    // length 1
+    start="cat"
+    end="bat"
+
+
+input : {"cat","bat","dat","hat"} <===
+    start="cat"
+    end="hat"
+    // length 2, two choices bat & dat
+
+
+
+
+// like if there's circular edges inside the path
+    "cat","bat","bbt","cbt","
+
+            cat -> bat
+            cat -> cbt
+            bat -> bbt
+            bbt -> cbt
+
+
+    cat -> bat -> bbt -> cbt
+
+
+n * n * k to build the graph
+    
+      
+n nodes
+  (k-1) edge at most for a node
+maximum edges in the graph: n*(k-1)
+
+
+array of N numbers, [1..N+1] array is sorted, numbers are unique 1 missing number
+[1,2,4,5] 3 is missing
+array of n number , the sum should be  (1+2+3..+5 = 15 -> n*(n+1)/2 
+
+N=1
+-> [1] ? 2 is missing
+   [2] ? 1 is missing 
+N=2
+-> [ 1 2 ] 3 is missing
+   [ 2 3 ] 1 is imssing
+   [ 1 3 ] 2 is missing
+
+N = 10 (even)
+missing 5
+[ 1 2 3 4 | 6 7 8 9 10 11]
+N = 11 (odd)
+
+
+so split array into left and right partition, by the middle
+look at the middle, if the elmeent in the middle is in place ? if it is then the missing number must be on the right partition, else its in the left partition and recurse
+lg n
+
+findMissingNumber(array,0,array.length);
+
+int findMissingNumber(int [] array,int left,int right) {
+    if (left == right)
+        return left;
+    int middle = (left+right)/2;
+    if (array[middle] == middle) {
+        return findMissingNumber(array,middle+1,right);
+    } else {
+        return findMissingNumber(array,left,middle);
+    }
+}
+
+findMissingNumber({1},0,1)
+    middle = 0
+    if (array[0] == 0) -> false
+       findMissingNumber({1},0,0)
+          if (0 == 0)
+             return 0;
+
+findMissingNumber({0},0,1)
+    middle = 0
+    if (array[0] == 0) -> true
+       findMissingNumber({0},1,1)
+          if (1 == 1)
+             return 1;
